@@ -27,10 +27,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   @override
   void initState(){
     super.initState();
+    print("height: " + Dimensions.screenHeight.toString() +"\n width: " + Dimensions.screenWidth.toString()
+    );
+
     pageController.addListener(() {
       setState(() {
         _currPageValue= pageController.page;
-        print('current value ' + _currPageValue.toString());
+        //print('current value ' + _currPageValue.toString());
+
       });
     });
   }
@@ -45,7 +49,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children:[
         Container(
-        height: 320,
+        height: Dimensions.pageView
+          ,
         child: PageView.builder(
           controller: pageController,
           itemCount: 5,
@@ -63,7 +68,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       activeColor: AppColors.mainColor
     ),
     )
-
       ]
     );
   }
@@ -71,6 +75,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget _buildPageItem(int index){
 
     Matrix4 matrix= new Matrix4.identity();
+
     if(index == _currPageValue.floor())
     {
       var currScale = 1-(_currPageValue-index)*(1-_scaleFactor);
@@ -95,18 +100,17 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, _height*(1-_scaleFactor)/2, 1);
     }
 
-
     return Transform(
       //Transform lass uns mit matrix arbeiten.
       transform: matrix,
       child: Stack(
-        //Stack lass uns Widget ohne position machen
+        //Stack lass uns Widget ohne position machen .. das heißt , wir konnen eine andere Box auf Stack machen
         children:[
           Container(
             height: Dimensions.pageViewContainer,
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(Dimensions.radius20),
               color: index.isEven?Color(0xFF69c5df):Color(0xFF9294cc),
               image: DecorationImage(
                   fit: BoxFit.cover,
@@ -122,9 +126,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: Dimensions.pageViewTextContainer,
-              margin: EdgeInsets.only(left: 50, right: 50, bottom: 30),
+
+              margin: EdgeInsets.only(left: Dimensions.width40, right: Dimensions.width40, bottom: Dimensions.width30),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: Colors.white,
                 boxShadow: [
                   BoxShadow(
@@ -144,26 +149,26 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ),
               //diese Container hat die Beschreibung des Bilds(text-bewertung-abstand)
               child: Container(
-                padding: EdgeInsets.only(top: 10, left: 15,right: 15),
+                padding: EdgeInsets.only(top: Dimensions.height10, left: Dimensions.width15,right: Dimensions.width15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BigText(text: "Chinese Side"),
-                    SizedBox(height: 10,),
+                    SizedBox(height: Dimensions.height10,),
                     Row(
                       children: [
                         Wrap(
-                          children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15,))
+                          children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: Dimensions.height15,))
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(width: Dimensions.width10),
                         SmallText(text: "4.5"),
-                        SizedBox(width: 10,),
+                        SizedBox(width: Dimensions.width10,),
                         SmallText(text:"1287"),
-                        SizedBox(width: 10,),
+                        SizedBox(width: Dimensions.width10,),
                         SmallText(text: "comments"),
                       ],
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: Dimensions.height20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
