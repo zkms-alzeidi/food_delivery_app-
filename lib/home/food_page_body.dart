@@ -47,7 +47,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:[
+      children:
+      [
+        //Das ist Die erste herozentile List
         Container(
         height: Dimensions.pageView
           ,
@@ -68,6 +70,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       activeColor: AppColors.mainColor
     ),
     )
+
+
       ]
     );
   }
