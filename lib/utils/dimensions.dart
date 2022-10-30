@@ -14,11 +14,13 @@ class Dimensions{
  static double height10 = screenHeight/75.9;
  static double height15 = screenHeight/50.61;
  static double height20= screenHeight/37.9;
+ static double height30 = screenHeight/25.309;
  static double height45= screenHeight/16.87;
 
  //fonts
  static double font20 = screenHeight/37.9;
  static double font12 = screenHeight/63.2;
+ static double font10 = screenHeight/75.9;
 
  //Radius
  static double radius15 = screenHeight/50.61;
@@ -27,6 +29,7 @@ class Dimensions{
 
 
  //dynamic width padding and margin
+ static double width5= screenWidth/78.54;
  static double width10 = screenWidth/39.272;
  static double width15 = screenWidth/26.18;
  static double width20= screenWidth/19.63;
@@ -37,6 +40,10 @@ class Dimensions{
 
  //Icon Size
  static double iconSize23 = screenHeight/33.011;
-static double iconSize27 = screenHeight/28.12;
+ static double iconSize27 = screenHeight/28.12;
+ static double iconSize17 = screenHeight/44.66;
+
+
+
 
 }
