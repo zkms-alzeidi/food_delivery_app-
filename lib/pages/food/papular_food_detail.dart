@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/appIcon.dart';
 import 'package:food_delivery/widgets/app_column.dart';
+import 'package:food_delivery/widgets/expandable_text_widget.dart';
 
 import '../../utils/colors.dart';
 import '../../widgets/big_text.dart';
@@ -10,7 +11,7 @@ import '../../widgets/icon_and_text_widget.dart';
 import '../../widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key key}) : super(key: key);
+  const PopularFoodDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class PopularFoodDetail extends StatelessWidget {
       //Stack lass mich viele sache zusammen aufandere setzen.
       body: Stack(
         children: [
-          //the image
+          // background image
           Positioned(left: 0, right: 0, child:
           Container(
           width: double.maxFinite,
@@ -29,7 +30,7 @@ class PopularFoodDetail extends StatelessWidget {
           ),
         )),
 
-          //the Buttuns
+          //the icons
           Positioned(
               left:Dimensions.width20,
               right:Dimensions.width20,
@@ -42,7 +43,7 @@ class PopularFoodDetail extends StatelessWidget {
             ],
           )),
 
-          //the Details
+          //the introduction
           Positioned(
             left: 0,
               right: 0,
@@ -56,11 +57,15 @@ class PopularFoodDetail extends StatelessWidget {
                   children: [
                     AppColumn(text: "Chinese Side",),
                     SizedBox(height: Dimensions.height20,),
-                    BigText(text: "Introduce")
-
+                    BigText(text: "Introduce"),
+                    SizedBox(height: Dimensions.height10,),
+                    Expanded(child: SingleChildScrollView(child: ExpandableTextWidget(text: "My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.",))),
                   ],
                 ),
           ))
+
+
+
 
         ],
       ),

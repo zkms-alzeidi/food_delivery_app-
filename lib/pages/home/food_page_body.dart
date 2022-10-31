@@ -9,7 +9,7 @@ import 'package:food_delivery/widgets/icon_and_text_widget.dart';
 import 'package:food_delivery/widgets/small_text.dart';
 
 class FoodPageBody extends StatefulWidget {
-  const FoodPageBody({Key key}) : super(key: key);
+  const FoodPageBody({Key? key}) : super(key: key);
 
   @override
   _FoodPageBodyState createState() => _FoodPageBodyState();
@@ -33,7 +33,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
     pageController.addListener(() {
       setState(() {
-        _currPageValue = pageController.page;
+        _currPageValue = pageController.page!;
         //print('current value ' + _currPageValue.toString());
       });
     });
@@ -110,6 +110,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       ),
       //the List
       ListView.builder(
+
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: 10,
@@ -170,6 +171,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   }
 
   Widget _buildPageItem(int index) {
+
     Matrix4 matrix = new Matrix4.identity();
 
     if (index == _currPageValue.floor()) {

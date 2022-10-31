@@ -8,7 +8,7 @@ import 'food_page_body.dart';
 
 class MainFoodPage extends StatefulWidget {
 
-  const MainFoodPage({Key key}) : super(key: key);
+  const MainFoodPage({Key? key}) : super(key: key);
 
   @override
   _MainFoodPageState createState() => _MainFoodPageState();

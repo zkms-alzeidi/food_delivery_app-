@@ -12,7 +12,7 @@ class AppColumn extends StatelessWidget {
   final String text;
 
 
-  const AppColumn({Key key, @required this.text}) : super(key: key);
+  const AppColumn({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +58,11 @@ class AppColumn extends StatelessWidget {
             IconAndTextWidget(
                 icon: Icons.location_on,
                 text: '1.7km',
-                iconColor: AppColors.mainColor),
+                iconColor: AppColors.mainColor, textSize: Dimensions.font12, iconSize: Dimensions.iconSize23),
             IconAndTextWidget(
                 icon: Icons.access_time_rounded,
                 text: '32min',
-                iconColor: AppColors.iconColor2)
+                iconColor: AppColors.iconColor2, textSize: Dimensions.font12, iconSize: Dimensions.iconSize23)
           ],
         )
       ],
