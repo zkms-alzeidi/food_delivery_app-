@@ -101,6 +101,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 text: "Food pairing",
               ),
             ),
+
           ],
         ),
       ),
@@ -124,8 +125,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     children: [
                       //Image section
                       Container(
-                        width: 120,
-                        height: 120,
+                        width: Dimensions.width120,
+                        height: Dimensions.height120,
                         decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
