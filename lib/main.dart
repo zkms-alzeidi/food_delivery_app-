@@ -3,8 +3,11 @@ import 'package:food_delivery/pages/food/papular_food_detail.dart';
 import 'package:food_delivery/pages/food/recommended_food_detail.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
 import 'package:get/get.dart';
+import 'helper/dependencies.dart' as dep;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(MyApp());
 }
 
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RecommendedFoodDetail(),
+      home: MainFoodPage(),
     );
   }
 }
@@ -26,9 +29,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final String title;
   MyHomePage({Key? key, this.title=""}) : super(key: key);
-
-
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
