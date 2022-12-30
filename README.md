@@ -2,7 +2,7 @@
 I am going to develop my largest App. It is a delivery app.
 
 # Overview
-This app is used for delivery food. I dont work daily but i still working. So you cann follow me.
+This app is used for delivery food. I dont work daily but i am still working. So you can follow me.
 
 # Pictures
 
