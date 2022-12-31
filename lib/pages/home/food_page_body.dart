@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers%20/popular_product_controller.dart';
 import 'package:food_delivery/controllers%20/recommended_popular_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
+import 'package:food_delivery/pages/food/papular_food_detail.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
@@ -56,12 +58,17 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       GetBuilder<PopularProductController>(builder:(popularProducts){
         return popularProducts.isLoaded?Container(
           height: Dimensions.pageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: popularProducts.popularProductList.length,
-              itemBuilder: (context, position) {
-                return _buildPageItem(position, popularProducts.popularProductList[position]);
-              }),
+          child: GestureDetector(
+            onTap: (){
+              Get.toNamed(RouteHelper.getPopularFood());
+            },
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: popularProducts.popularProductList.length,
+                itemBuilder: (context, position) {
+                  return _buildPageItem(position, popularProducts.popularProductList[position]);
+                }),
+          ),
         ):CircularProgressIndicator(color: AppColors.mainColor,);
       }),
       GetBuilder<PopularProductController>(builder: (popularProducts){
@@ -116,7 +123,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       ),
 
       SizedBox(
-        height: Dimensions.height30,
+        height: Dimensions.height10,
       ),
       //the List
       GetBuilder<RecommendedProductController>(builder: (recommendedProduct){
@@ -158,6 +165,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             color: Colors.white),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+
                           children: [
                             BigText(text: product.name!),
                             SizedBox(height: Dimensions.height10,),
