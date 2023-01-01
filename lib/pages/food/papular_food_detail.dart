@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers%20/popular_product_controller.dart';
+import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/appIcon.dart';
 import 'package:food_delivery/widgets/app_column.dart';
@@ -13,10 +16,15 @@ import '../../widgets/icon_and_text_widget.dart';
 import '../../widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  int pageId;
+
+   PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ProductModel product= Get.find<PopularProductController>().popularProductList[pageId];
+    print("page is id $pageId");
+    print("product name is "+ product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       //Stack lass mich viele sache zusammen aufandere setzen.
@@ -28,7 +36,7 @@ class PopularFoodDetail extends StatelessWidget {
           width: double.maxFinite,
           height: Dimensions.popularFoodImgSize,
           decoration: BoxDecoration(
-            image: DecorationImage(fit: BoxFit.cover,image: AssetImage("assets/image/burger.jpg"))
+            image: DecorationImage(fit: BoxFit.cover,image: NetworkImage(AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!))
           ),
         )),
 
@@ -65,11 +73,11 @@ class PopularFoodDetail extends StatelessWidget {
                 child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(text: "Chinese Side",),
+                    AppColumn(text: product.name!,),
                     SizedBox(height: Dimensions.height20,),
                     BigText(text: "Introduce"),
                     SizedBox(height: Dimensions.height10,),
-                    Expanded(child: SingleChildScrollView(child: ExpandableTextWidget(text: "My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.My code is exactly the same as found on the linked website. This error looks strange as I haven't found anything on google or stackoverflow similar to this.",))),
+                    Expanded(child: SingleChildScrollView(child: ExpandableTextWidget(text: product.description!,))),
                   ],
                 ),
           ))
@@ -102,7 +110,7 @@ class PopularFoodDetail extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: Dimensions.height20,bottom: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radius20),color: AppColors.mainColor),
-              child: BigText(text: "\$10 | Add to cart",color: Colors.white,),
+              child: BigText(text: "\$ ${product.price} | Add to cart",color: Colors.white,),
             )
           ],
         ),

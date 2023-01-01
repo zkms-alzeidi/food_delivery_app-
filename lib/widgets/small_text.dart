@@ -24,8 +24,6 @@ class SmallText extends StatelessWidget {
 
     return Text(
       text,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           color: color, fontFamily: "Roboto", fontSize: size==0?Dimensions.font12 : size, height: height),
     );
