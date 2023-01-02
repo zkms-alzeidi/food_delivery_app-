@@ -98,7 +98,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                   iconColor: Colors.white,
                   backgroundColor: AppColors.mainColor,
                   icon: Icons.add),
-            ],
+            ], 
           ),
           SizedBox(height: Dimensions.height10,),
           // Bottom container for like and  Bottom (Add to cart)

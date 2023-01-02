@@ -132,6 +132,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             itemCount: recommendedProduct.recommendedProductList.length,
             itemBuilder: (context, index) {
               ProductModel product= recommendedProduct.recommendedProductList[index];
+
               return GestureDetector(
                 onTap: (){
                   Get.toNamed(RouteHelper.getRecommendedFood(index));
