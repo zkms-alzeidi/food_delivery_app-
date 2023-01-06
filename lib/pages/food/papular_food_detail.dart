@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers%20/cart_controller.dart';
 import 'package:food_delivery/controllers%20/popular_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
@@ -25,7 +26,7 @@ class PopularFoodDetail extends StatelessWidget {
     ProductModel product =
         Get.find<PopularProductController>().popularProductList[pageId];
 
-    Get.find<PopularProductController>().initProduct();
+    Get.find<PopularProductController>().initProduct(Get.find<CartController>());
     return Scaffold(
         backgroundColor: Colors.white,
         //Stack lass mich viele sache zusammen aufandere setzen.
@@ -165,9 +166,14 @@ class PopularFoodDetail extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
                       color: AppColors.mainColor),
-                  child: BigText(
-                    text: "\$ ${product.price} | Add to cart",
-                    color: Colors.white,
+                  child: GestureDetector(
+                    onTap: (){
+                      popularProduct.addItem(product);
+                    },
+                    child: BigText(
+                      text: "\$ ${product.price} | Add to cart",
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ],
