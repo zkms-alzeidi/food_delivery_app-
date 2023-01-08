@@ -9,6 +9,8 @@ class CartController extends GetxController{
   CartController({required this.cartRepo});
   Map<int, CartModel> _items= {};
 
+  Map<int, CartModel> get items=> _items;
+
   void addItem(ProductModel product, int quantity){
     if(_items.containsKey(product.id))
     {
@@ -41,6 +43,29 @@ class CartController extends GetxController{
 
 
 
+  }
+
+  bool existInCart(ProductModel product){
+    if(_items.containsKey(product.id)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+   int getQuantity(ProductModel product){
+    var quantity = 0;
+     if(_items.containsKey(product.id)){
+       _items.forEach((key, value) {
+         if(value.id == product.id)
+         {
+           quantity= value.quantity!;
+         }
+       });
+     }
+
+     return quantity;
   }
 
 }

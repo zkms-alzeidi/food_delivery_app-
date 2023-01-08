@@ -11,6 +11,7 @@ import 'package:food_delivery/widgets/app_column.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
 
+import '../../models/cart_model.dart';
 import '../../utils/colors.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/icon_and_text_widget.dart';
@@ -19,6 +20,8 @@ import '../../widgets/small_text.dart';
 class PopularFoodDetail extends StatelessWidget {
   int pageId;
 
+
+
   PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
@@ -26,7 +29,9 @@ class PopularFoodDetail extends StatelessWidget {
     ProductModel product =
         Get.find<PopularProductController>().popularProductList[pageId];
 
-    Get.find<PopularProductController>().initProduct(Get.find<CartController>());
+
+
+    Get.find<PopularProductController>().initProduct(Get.find<CartController>(), product);
     return Scaffold(
         backgroundColor: Colors.white,
         //Stack lass mich viele sache zusammen aufandere setzen.
@@ -143,7 +148,7 @@ class PopularFoodDetail extends StatelessWidget {
                         width: Dimensions.width5,
                       ),
                       BigText(
-                          text: popularProduct.quantity.toString()),
+                          text: popularProduct.inCartItems.toString()),
                       SizedBox(
                         width: Dimensions.width5,
                       ),
