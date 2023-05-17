@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -73,26 +74,31 @@ class _HistoryPageState extends State<HistoryPage> {
                 children: [
                   for (int i = 0; i <itemsPerOrder.length; i++)
                     Container(
+                      height: 120,
+
                       margin: EdgeInsets.only(bottom: Dimensions.height20),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BigText(
+                            BigText
+                              (
                               text:historyList[i].time!,
                             ),
                             SizedBox(height: Dimensions.height10,),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children:[
                                 Wrap(
                                     direction: Axis.horizontal,
                                     children:
                                     List.generate(itemsPerOrder[i], (index) {
-                                      if(listCounter<historyList.length){
+                                      if(listCounter<historyList.length)
+                                      {
                                         listCounter++;
                                       }
                                       return index<=2?  Container(
-                                          width: 90,
-                                          height: 90,
+                                          width: 80,
+                                          height: 80,
                                           margin: EdgeInsets.only(right: Dimensions.width10/2),
                                           decoration: BoxDecoration(
                                               color: AppColors.mainColor,
@@ -106,6 +112,46 @@ class _HistoryPageState extends State<HistoryPage> {
                                     })
 
                                 ),
+                                //total items clickhere
+                                Container(
+                                  height: 80,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SmallText(
+                                        text: "Total",
+                                        size: Dimensions.font16,
+                                      ),
+                                      Text(
+                                      itemsPerOrder[i].toString() +
+                                            " Items",
+                                        style: TextStyle(
+                                            fontSize: Dimensions.font20),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
+                                        child: Center(
+                                          child: Text(
+                                            "click here",
+                                            style: TextStyle(
+                                                color: AppColors.mainColor,
+                                                fontSize: Dimensions.font16),
+                                          ),
+                                        ),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: AppColors.mainColor,
+                                                width: 1.0),
+                                            borderRadius:
+                                            BorderRadius.circular(5)),
+                                      )
+                                    ],
+                                  ),
+                                )
+
 
                             ]
                             )
