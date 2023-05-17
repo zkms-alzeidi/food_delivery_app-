@@ -47,10 +47,10 @@ class _HistoryPageState extends State<HistoryPage> {
       return Column(
         children: [
           Container(
-            height: 100,
+            height: Dimensions.height100,
             color: AppColors.mainColor,
             width: double.maxFinite,
-            padding: EdgeInsets.only(top: 45),
+            padding: EdgeInsets.only(top: Dimensions.height45),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -64,104 +64,106 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           Expanded(
             child: Container(
-              height: 500,
+
               margin: EdgeInsets.only(
                   top: Dimensions.height20,
                   left: Dimensions.width20,
                   right: Dimensions.width20,),
-              child: ListView(
-                children: [
-                  for (int i = 0; i <itemsPerOrder.length; i++)
-                    Container(
-                      height: 120,
-                      margin: EdgeInsets.only(bottom: Dimensions.height20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ((){
-
-                              DateTime parseDate=DateFormat("yyyy-MM-dd HH:mm:ss").parse(getHistoryList[i].time!);
-                              var inputDate= DateTime.parse(parseDate.toString());
-                              var outputFormat= DateFormat("MM/dd/yyyy hh:mm a");
-                              var outputDate= outputFormat.format(inputDate);
-                              return BigText(text:outputDate);
-
-                            }()),
-                            SizedBox(height: Dimensions.height10,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:[
-                                Wrap(
-                                    direction: Axis.horizontal,
-                                    children:
-                                    List.generate(itemsPerOrder[i], (index) {
-                                      print("the itemsPerOrderLength"+itemsPerOrder[i].toString());
-                                      if(listCounter<getHistoryList.length)
-                                      {
-                                        listCounter++;
-                                      }
-                                      return index<=2?  Container(
-                                          width: 80,
-                                          height: 80,
-                                          margin: EdgeInsets.only(right: Dimensions.width10/2),
-                                          decoration: BoxDecoration(
-                                              color: AppColors.mainColor,
-                                              borderRadius: BorderRadius.circular(Dimensions.radius15/2),
-                                              image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      AppConstants.BASE_URL +
-                                                          AppConstants.UPLOAD_URL +
-                                                          getHistoryList[listCounter-1].img!)))):Container();
-                                    })
-
-                                ),
-                                //total items clickhere
-                                Container(
-                                  height: 80,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SmallText(
-                                        text: "Total",
-                                        size: Dimensions.font16,
-                                      ),
-                                      Text(
-                                      itemsPerOrder[i].toString() +
-                                            " Items",
-                                        style: TextStyle(
-                                            fontSize: Dimensions.font20),
-                                      ),
-                                      Container(
-                                        height: 30,
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
-                                        child: Center(
-                                          child: Text(
-                                            "click here",
-                                            style: TextStyle(
+              child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: ListView(
+                  children: [
+                    for (int i = 0; i <itemsPerOrder.length; i++)
+                      Container(
+                        height: Dimensions.height120,
+                        margin: EdgeInsets.only(bottom: Dimensions.height20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ((){
+                                DateTime parseDate=DateFormat("yyyy-MM-dd HH:mm:ss").parse(getHistoryList[i].time!);
+                                var inputDate= DateTime.parse(parseDate.toString());
+                                var outputFormat= DateFormat("MM/dd/yyyy hh:mm a");
+                                var outputDate= outputFormat.format(inputDate);
+                                return BigText(text:outputDate);
+                              }()),
+                              SizedBox(height: Dimensions.height10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children:[
+                                  Wrap(
+                                      direction: Axis.horizontal,
+                                      children:
+                                      List.generate(itemsPerOrder[i], (index) {
+                                        print("the itemsPerOrderLength"+itemsPerOrder[i].toString());
+                                        if(listCounter<getHistoryList.length)
+                                        {
+                                          listCounter++;
+                                        }
+                                        return index<=2?  Container(
+                                            width: Dimensions.width40*2,
+                                            height: Dimensions.height40*2,
+                                            margin: EdgeInsets.only(right: Dimensions.width10/2),
+                                            decoration: BoxDecoration(
                                                 color: AppColors.mainColor,
-                                                fontSize: Dimensions.font16),
-                                          ),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: AppColors.mainColor,
-                                                width: 1.0),
-                                            borderRadius:
-                                            BorderRadius.circular(5)),
-                                      )
-                                    ],
+                                                borderRadius: BorderRadius.circular(Dimensions.radius15/2),
+                                                image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                        AppConstants.BASE_URL +
+                                                            AppConstants.UPLOAD_URL +
+                                                            getHistoryList[listCounter-1].img!)))):Container();
+                                      })
+
                                   ),
-                                )
+                                  //total items clickhere
+                                  Container(
+                                    height: Dimensions.height40*2,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SmallText(
+                                          text: "Total",
+                                          size: Dimensions.font16,
+                                        ),
+                                        Text(
+                                        itemsPerOrder[i].toString() +
+                                              " Items",
+                                          style: TextStyle(
+                                              fontSize: Dimensions.font20),
+                                        ),
+                                        Container(
+                                          height: Dimensions.height30,
+                                          alignment: Alignment.center,
+                                          padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
+                                          child: Center(
+                                            child: Text(
+                                              "click here",
+                                              style: TextStyle(
+                                                  color: AppColors.mainColor,
+                                                  fontSize: Dimensions.font16),
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: AppColors.mainColor,
+                                                  width: Dimensions.width10/10.0),
+                                              borderRadius:
+                                              BorderRadius.circular(Dimensions.radius15/3)),
+                                        )
+                                      ],
+                                    ),
+                                  )
 
 
-                            ]
-                            )
-                          ]),
-                    )
-                ],
+                              ]
+                              )
+                            ]),
+                      )
+                  ],
+                ),
               ),
             ),
           )
