@@ -10,6 +10,7 @@ import 'package:food_delivery/widgets/appIcon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/small_text.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controllers/cart_controller.dart';
 
@@ -23,7 +24,7 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    var getHistoryList = Get.find<CartController>().getHistoryList();
+    var getHistoryList = Get.find<CartController>().getHistoryList().reversed.toList();
     Map<String, int> cartItemsPerOrder = Map();
 
     for (int i = 0; i < getHistoryList.length; i++) {
@@ -42,9 +43,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
     int listCounter = 0;
     return Scaffold(body: GetBuilder<CartController>(builder: (cartController) {
-      List<CartModel> historyList = cartController.getHistoryData();
-      print("historyList length: "+historyList.length.toString());
-      print("itemsPerOrder length: "+itemsPerOrder.length.toString());
+
       return Column(
         children: [
           Container(
@@ -75,15 +74,19 @@ class _HistoryPageState extends State<HistoryPage> {
                   for (int i = 0; i <itemsPerOrder.length; i++)
                     Container(
                       height: 120,
-
                       margin: EdgeInsets.only(bottom: Dimensions.height20),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BigText
-                              (
-                              text:historyList[i].time!,
-                            ),
+                            ((){
+
+                              DateTime parseDate=DateFormat("yyyy-MM-dd HH:mm:ss").parse(getHistoryList[i].time!);
+                              var inputDate= DateTime.parse(parseDate.toString());
+                              var outputFormat= DateFormat("MM/dd/yyyy hh:mm a");
+                              var outputDate= outputFormat.format(inputDate);
+                              return BigText(text:outputDate);
+
+                            }()),
                             SizedBox(height: Dimensions.height10,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +95,8 @@ class _HistoryPageState extends State<HistoryPage> {
                                     direction: Axis.horizontal,
                                     children:
                                     List.generate(itemsPerOrder[i], (index) {
-                                      if(listCounter<historyList.length)
+                                      print("the itemsPerOrderLength"+itemsPerOrder[i].toString());
+                                      if(listCounter<getHistoryList.length)
                                       {
                                         listCounter++;
                                       }
@@ -108,7 +112,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                                   image: NetworkImage(
                                                       AppConstants.BASE_URL +
                                                           AppConstants.UPLOAD_URL +
-                                                          historyList[listCounter-1].img!)))):Container();
+                                                          getHistoryList[listCounter-1].img!)))):Container();
                                     })
 
                                 ),
