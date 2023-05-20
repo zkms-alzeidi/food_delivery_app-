@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:food_delivery/models/cart_model.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
@@ -28,7 +29,8 @@ class _HistoryPageState extends State<HistoryPage> {
     Map<String, int> cartItemsPerOrder = Map();
 
     for (int i = 0; i < getHistoryList.length; i++) {
-      if (cartItemsPerOrder.containsKey(getHistoryList[i].time)) {
+      if (cartItemsPerOrder.containsKey(getHistoryList[i].time))
+      {
         cartItemsPerOrder.update(getHistoryList[i].time!, (value) => ++value);
       } else {
         cartItemsPerOrder.putIfAbsent(getHistoryList[i].time!, () => 1);
@@ -139,11 +141,16 @@ class _HistoryPageState extends State<HistoryPage> {
                                           alignment: Alignment.center,
                                           padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
                                           child: Center(
-                                            child: Text(
-                                              "click here",
-                                              style: TextStyle(
-                                                  color: AppColors.mainColor,
-                                                  fontSize: Dimensions.font16),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                Get.toNamed(RouteHelper.getCardPage(i,"HistoryList"));
+                                              },
+                                              child: Text(
+                                                "click here",
+                                                style: TextStyle(
+                                                    color: AppColors.mainColor,
+                                                    fontSize: Dimensions.font16),
+                                              ),
                                             ),
                                           ),
                                           decoration: BoxDecoration(
