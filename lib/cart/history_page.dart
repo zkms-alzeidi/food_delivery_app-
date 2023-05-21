@@ -143,10 +143,11 @@ class _HistoryPageState extends State<HistoryPage> {
                                           child: Center(
                                             child: GestureDetector(
                                               onTap: (){
-                                                Get.toNamed(RouteHelper.getCardPage(i,"HistoryList"));
+                                                print("one more clicked" +getHistoryList[i].time!);
+                                                //Get.toNamed(RouteHelper.getCardPage(i,"HistoryList"));
                                               },
                                               child: Text(
-                                                "click here",
+                                                "one more",
                                                 style: TextStyle(
                                                     color: AppColors.mainColor,
                                                     fontSize: Dimensions.font16),
