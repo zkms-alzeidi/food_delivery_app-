@@ -18,9 +18,7 @@ import '../controllers/recommended_popular_controller.dart';
 import '../models/cart_model.dart';
 
 class CartPage extends StatelessWidget {
-  int pageId;
-  String page;
-  CartPage({Key? key,required this.pageId,required this.page}) : super(key: key);
+  CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +27,8 @@ class CartPage extends StatelessWidget {
       body: GetBuilder<CartController>(
         builder: (cart) {
       List<CartModel> items=[];
+      items = cart.getItems;
 
-      if(page=="HistoryList"){
-        List<CartModel> getHistoryList = cart.getHistoryList().reversed.toList();
-        for(int i=0; i<getHistoryList.length;i++){
-          if(getHistoryList[i].time! == getHistoryList[pageId].time){
-            items.add(getHistoryList[i]);
-          }
-        }
-      }
-      else{
-          items = cart.getItems;
-      }
 
       return Stack(
         children: [

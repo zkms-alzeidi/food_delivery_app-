@@ -21,7 +21,7 @@ class RouteHelper {
   static String getPopularFood(int pageId, String page) => '$popularFood?pageId=$pageId&page=$page';
   static String getRecommendedFood(int pageId, String page) => '$recommendedFood?pageId=$pageId&page=$page';
 
-  static String getCardPage(int pageId, String page)=> '$cartPage?pageId=$pageId&page=$page';
+  static String getCardPage()=> '$cartPage';
   static List<GetPage> routes = [
 
     GetPage(name: splashScreen, page: ()=>SplashScreen()),
@@ -32,9 +32,7 @@ class RouteHelper {
     GetPage(
         name: cartPage,
         page: ()  {
-          var pageId= Get.parameters['pageId'];
-          var page=  Get.parameters['page'];
-          return CartPage(pageId: int.parse(pageId!),page:page!,);
+          return CartPage();
   },
         transition: Transition.fadeIn),
     GetPage(

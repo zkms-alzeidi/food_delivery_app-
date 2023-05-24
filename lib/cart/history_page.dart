@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     var getHistoryList = Get.find<CartController>().getHistoryList().reversed.toList();
-    Map<String, int> cartItemsPerOrder = Map();
+    Map<String, int> cartItemsPerOrder = Map(); //Map has a list of Items those the same Date have.
 
     for (int i = 0; i < getHistoryList.length; i++) {
       if (cartItemsPerOrder.containsKey(getHistoryList[i].time))
@@ -37,11 +39,16 @@ class _HistoryPageState extends State<HistoryPage> {
       }
     }
 
-    List<int> cartOrderTimeToList() {
+    List<int> cartItemsTimeToList()
+    {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
+    List<String> cartOrderTimeToList()
+    {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
+    }
 
-    List<int> itemsPerOrder = cartOrderTimeToList();
+    List<int> itemsPerOrder = cartItemsTimeToList();
 
     int listCounter = 0;
     return Scaffold(body: GetBuilder<CartController>(builder: (cartController) {
@@ -143,8 +150,17 @@ class _HistoryPageState extends State<HistoryPage> {
                                           child: Center(
                                             child: GestureDetector(
                                               onTap: (){
-                                                print("one more clicked" +getHistoryList[i].time!);
-                                                //Get.toNamed(RouteHelper.getCardPage(i,"HistoryList"));
+                                                var orderTime= cartOrderTimeToList();
+                                                print("the time " +orderTime[i]);
+                                                Map<int,CartModel> moreOrder={};
+                                                for(int j = 0; j < getHistoryList.length; j++ ){
+                                                  if(getHistoryList[j].time! == orderTime[i]){
+                                                    moreOrder.putIfAbsent(getHistoryList[i].product!.id!, () => getHistoryList[i]);
+                                                  }
+                                                }
+                                                cartController.setItems= moreOrder;
+                                                cartController.addToCartList();
+                                                //Get.toNamed(RouteHelper.getCardPage());
                                               },
                                               child: Text(
                                                 "one more",

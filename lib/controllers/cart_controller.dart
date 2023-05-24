@@ -15,13 +15,6 @@ class CartController extends GetxController{
   List<CartModel> historyItems= [];
 
 
-
-
-
-
-
-
-
   void addItem(ProductModel product, int quantity){
 
     var totalQuantity=0;
@@ -78,7 +71,6 @@ class CartController extends GetxController{
     }
     cartRepo.addToCartList(getItems);
     update();
-
 
 
   }
@@ -161,6 +153,16 @@ class CartController extends GetxController{
 
   List<CartModel> getHistoryList(){
     return cartRepo.getHistoryList();
+  }
+
+  set setItems(Map<int, CartModel> setItems){
+    _items={};
+    _items= setItems;
+  }
+
+  void addToCartList(){
+    cartRepo.addToCartList(getItems);
+    update();
   }
 
 

@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     MainFoodPage(),
     PopularFoodDetail(pageId: 3, page: "home"),
     HistoryPage(),
-    CartPage(pageId:0,page: "HomePage",),
+    CartPage(),
   ];
   late PersistentTabController _controller;
 
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
       MainFoodPage(),
       PopularFoodDetail(pageId: 3, page: "home"),
       HistoryPage(),
-      CartPage(pageId:0,page: "HomePage",),
+      CartPage(),
     ];
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {

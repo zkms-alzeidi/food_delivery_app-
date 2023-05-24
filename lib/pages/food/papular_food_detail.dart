@@ -61,7 +61,7 @@ class PopularFoodDetail extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         if (page == "cartPage") {
-                          Get.toNamed(RouteHelper.getCardPage(0,"PopularFood"));
+                          Get.toNamed(RouteHelper.getCardPage());
                         } else
                         {
                           Get.toNamed(RouteHelper.getInitial());
@@ -73,7 +73,7 @@ class PopularFoodDetail extends StatelessWidget {
                       return GestureDetector(
                         onTap: () => {
                           if (controller.totalItems >= 1)
-                            Get.toNamed(RouteHelper.getCardPage(0,"PopularFood"))
+                            Get.toNamed(RouteHelper.getCardPage())
                         },
                         child: Stack(
                           children: [
