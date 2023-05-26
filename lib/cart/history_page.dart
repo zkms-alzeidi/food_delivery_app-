@@ -155,12 +155,16 @@ class _HistoryPageState extends State<HistoryPage> {
                                                 Map<int,CartModel> moreOrder={};
                                                 for(int j = 0; j < getHistoryList.length; j++ ){
                                                   if(getHistoryList[j].time! == orderTime[i]){
-                                                    moreOrder.putIfAbsent(getHistoryList[i].product!.id!, () => getHistoryList[i]);
+                                                    moreOrder.putIfAbsent(getHistoryList[j].product!.id!, ()
+                                                    {
+                                                      return CartModel.fromJson(jsonDecode(jsonEncode(getHistoryList[j])));
+                                                    });
                                                   }
                                                 }
+
                                                 cartController.setItems= moreOrder;
                                                 cartController.addToCartList();
-                                                //Get.toNamed(RouteHelper.getCardPage());
+                                                Get.toNamed(RouteHelper.getCardPage());
                                               },
                                               child: Text(
                                                 "one more",
