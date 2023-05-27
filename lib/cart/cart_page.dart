@@ -101,16 +101,21 @@ class CartPage extends StatelessWidget {
                               var productIndex= Get.find<PopularProductController>()
                                   .popularProductList
                                   .indexOf(items[index].product!); //if he can find the product will be saved his index else will save -1
+                              print("clicked "+productIndex.toString());
 
                               if(productIndex>=0){
-                                print(productIndex.toString()+" the first");
                                 Get.toNamed(RouteHelper.getPopularFood(productIndex, "cartPage"));
-                              }else{
+                              }
+                              else{
                                 productIndex= Get.find<RecommendedProductController>()
                                     .recommendedProductList
                                     .indexOf(items[index].product!);
-                                print(productIndex.toString()+" the second");
-                                Get.toNamed(RouteHelper.getRecommendedFood(productIndex,"cartPage"));
+                                if(productIndex<0){
+                                  Get..snackbar("History product", "product review is not available for History products", backgroundColor: AppColors.wrongColor,colorText: Colors.white);
+                                }else{
+                                  Get.toNamed(RouteHelper.getRecommendedFood(productIndex,"cartPage"));
+                                }
+
                               }
                             },
                             child: Container(

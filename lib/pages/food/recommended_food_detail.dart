@@ -42,7 +42,8 @@ class RecommendedFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      if (page == "cartPage") {
+                      if (page == "cartPage")
+                      {
                         Get.toNamed(RouteHelper.getCardPage());
                       }
                       else
