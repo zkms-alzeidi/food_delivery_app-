@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/no_data_page.dart';
 
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -50,6 +51,18 @@ class _HistoryPageState extends State<HistoryPage> {
 
     List<int> itemsPerOrder = cartItemsTimeToList();
 
+    Widget timeWidget(int index){
+      var outputDate= DateTime.now().toString();
+      if(index<getHistoryList.length)
+      {
+        DateTime parseDate=DateFormat("yyyy-MM-dd HH:mm:ss").parse(getHistoryList[index].time!);
+        var inputDate= DateTime.parse(parseDate.toString());
+        var outputFormat= DateFormat("MM/dd/yyyy hh:mm a");
+        outputDate= outputFormat.format(inputDate);
+      }
+      return BigText(text:outputDate);
+    }
+
     int listCounter = 0;
     return Scaffold(body: GetBuilder<CartController>(builder: (cartController) {
 
@@ -64,136 +77,140 @@ class _HistoryPageState extends State<HistoryPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BigText(text: "Cart History", color: Colors.white),
-                AppIcon(
-                  icon: Icons.shopping_cart_outlined,
-                  iconColor: AppColors.mainColor,
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getCardPage());
+                  },
+                  child: AppIcon(
+                    icon: Icons.shopping_cart_outlined,
+                    iconColor: AppColors.mainColor,
+                  ),
                 )
               ],
             ),
           ),
-          Expanded(
-            child: Container(
+          GetBuilder<CartController>(builder: (cartController)
+          {
+            return cartController.getHistoryList().length>0?
+            Expanded(
+              child: Container(
 
-              margin: EdgeInsets.only(
+                margin: EdgeInsets.only(
                   top: Dimensions.height20,
                   left: Dimensions.width20,
                   right: Dimensions.width20,),
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: ListView(
-                  children: [
-                    for (int i = 0; i <itemsPerOrder.length; i++)
-                      Container(
-                        height: Dimensions.height120,
-                        margin: EdgeInsets.only(bottom: Dimensions.height20),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ((){
-                                DateTime parseDate=DateFormat("yyyy-MM-dd HH:mm:ss").parse(getHistoryList[i].time!);
-                                var inputDate= DateTime.parse(parseDate.toString());
-                                var outputFormat= DateFormat("MM/dd/yyyy hh:mm a");
-                                var outputDate= outputFormat.format(inputDate);
-                                return BigText(text:outputDate);
-                              }()),
-                              SizedBox(height: Dimensions.height10,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:[
-                                  Wrap(
-                                      direction: Axis.horizontal,
-                                      children:
-                                      List.generate(itemsPerOrder[i], (index) {
-                                        print("the itemsPerOrderLength"+itemsPerOrder[i].toString());
-                                        if(listCounter<getHistoryList.length)
-                                        {
-                                          listCounter++;
-                                        }
-                                        return index<=2?  Container(
-                                            width: Dimensions.width40*2,
-                                            height: Dimensions.height40*2,
-                                            margin: EdgeInsets.only(right: Dimensions.width10/2),
-                                            decoration: BoxDecoration(
-                                                color: AppColors.mainColor,
-                                                borderRadius: BorderRadius.circular(Dimensions.radius15/2),
-                                                image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image: NetworkImage(
-                                                        AppConstants.BASE_URL +
-                                                            AppConstants.UPLOAD_URL +
-                                                            getHistoryList[listCounter-1].img!)))):Container();
-                                      })
-
-                                  ),
-                                  //total items clickhere
-                                  Container(
-                                    height: Dimensions.height40*2,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SmallText(
-                                          text: "Total",
-                                          size: Dimensions.font16,
-                                        ),
-                                        Text(
-                                        itemsPerOrder[i].toString() +
-                                              " Items",
-                                          style: TextStyle(
-                                              fontSize: Dimensions.font20),
-                                        ),
-                                        Container(
-                                          height: Dimensions.height30,
-                                          alignment: Alignment.center,
-                                          padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: (){
-                                                var orderTime= cartOrderTimeToList();
-                                                print("the time " +orderTime[i]);
-                                                Map<int,CartModel> moreOrder={};
-                                                for(int j = 0; j < getHistoryList.length; j++ ){
-                                                  if(getHistoryList[j].time! == orderTime[i]){
-                                                    moreOrder.putIfAbsent(getHistoryList[j].product!.id!, ()
-                                                    {
-                                                      return CartModel.fromJson(jsonDecode(jsonEncode(getHistoryList[j])));
-                                                    });
-                                                  }
-                                                }
-                                                cartController.setItems= moreOrder;
-                                                cartController.addToCartList();
-                                                Get.toNamed(RouteHelper.getCardPage());
-                                              },
-                                              child: Text(
-                                                "one more",
-                                                style: TextStyle(
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView(
+                    children: [
+                      for (int i = 0; i <itemsPerOrder.length; i++)
+                        Container(
+                          height: Dimensions.height120,
+                          margin: EdgeInsets.only(bottom: Dimensions.height20),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                timeWidget(listCounter),
+                                SizedBox(height: Dimensions.height10,),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children:[
+                                      Wrap(
+                                          direction: Axis.horizontal,
+                                          children:
+                                          List.generate(itemsPerOrder[i], (index) {
+                                            print("the itemsPerOrderLength"+itemsPerOrder[i].toString());
+                                            if(listCounter<getHistoryList.length)
+                                            {
+                                              listCounter++;
+                                            }
+                                            return index<=2?  Container(
+                                                width: Dimensions.width40*2,
+                                                height: Dimensions.height40*2,
+                                                margin: EdgeInsets.only(right: Dimensions.width10/2),
+                                                decoration: BoxDecoration(
                                                     color: AppColors.mainColor,
-                                                    fontSize: Dimensions.font16),
-                                              ),
+                                                    borderRadius: BorderRadius.circular(Dimensions.radius15/2),
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            AppConstants.BASE_URL +
+                                                                AppConstants.UPLOAD_URL +
+                                                                getHistoryList[listCounter-1].img!)))):Container();
+                                          })
+
+                                      ),
+                                      //total items clickhere
+                                      Container(
+                                        height: Dimensions.height40*2,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            SmallText(
+                                              text: "Total",
+                                              size: Dimensions.font16,
                                             ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: AppColors.mainColor,
-                                                  width: Dimensions.width10/10.0),
-                                              borderRadius:
-                                              BorderRadius.circular(Dimensions.radius15/3)),
-                                        )
-                                      ],
-                                    ),
-                                  )
+                                            Text(
+                                              itemsPerOrder[i].toString() +
+                                                  " Items",
+                                              style: TextStyle(
+                                                  fontSize: Dimensions.font20),
+                                            ),
+                                            Container(
+                                              height: Dimensions.height30,
+                                              alignment: Alignment.center,
+                                              padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: (){
+                                                    var orderTime= cartOrderTimeToList();
+                                                    print("the time " +orderTime[i]);
+                                                    Map<int,CartModel> moreOrder={};
+                                                    for(int j = 0; j < getHistoryList.length; j++ ){
+                                                      if(getHistoryList[j].time! == orderTime[i]){
+                                                        moreOrder.putIfAbsent(getHistoryList[j].product!.id!, ()
+                                                        {
+                                                          return CartModel.fromJson(jsonDecode(jsonEncode(getHistoryList[j])));
+                                                        });
+                                                      }
+                                                    }
+                                                    cartController.setItems= moreOrder;
+                                                    cartController.addToCartList();
+                                                    Get.toNamed(RouteHelper.getCardPage());
+                                                  },
+                                                  child: Text(
+                                                    "one more",
+                                                    style: TextStyle(
+                                                        color: AppColors.mainColor,
+                                                        fontSize: Dimensions.font16),
+                                                  ),
+                                                ),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: AppColors.mainColor,
+                                                      width: Dimensions.width10/10.0),
+                                                  borderRadius:
+                                                  BorderRadius.circular(Dimensions.radius15/3)),
+                                            )
+                                          ],
+                                        ),
+                                      )
 
 
-                              ]
-                              )
-                            ]),
-                      )
-                  ],
+                                    ]
+                                )
+                              ]),
+                        )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
+            ):
+            Container(height:MediaQuery.of(context).size.height/1.5,child: NoDataPage(text: "You didn't buy anything so far", imgPath: "assets/image/empty-box.png",));
+          })
         ],
       );
     }));
