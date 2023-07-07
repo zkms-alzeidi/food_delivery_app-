@@ -33,7 +33,9 @@ class PopularProductController extends GetxController {
       _popularProductList.addAll(Product.fromJson(response.body).products);
       _isLoaded = true;
       update();
-    } else {}
+    } else {
+      print("the response is "+ response.statusCode.toString());
+    }
   }
 
   void setQuantity(bool isIncrement) {
