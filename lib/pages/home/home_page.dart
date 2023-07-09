@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/cart/cart_page.dart';
 import 'package:food_delivery/cart/history_page.dart';
+import 'package:food_delivery/pages/account/account_page.dart';
 import 'package:food_delivery/pages/food/papular_food_detail.dart';
 import 'package:food_delivery/pages/food/recommended_food_detail.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
@@ -23,11 +24,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int _selectedIndex= 0;
-  List pages= [
+  List<Widget> pages= [
     MainFoodPage(),
-    PopularFoodDetail(pageId: 3, page: "home"),
     HistoryPage(),
     CartPage(),
+    AccountPage()
   ];
   late PersistentTabController _controller;
 
@@ -78,12 +79,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
   List<Widget> _buildScreens() {
-    return [
-      MainFoodPage(),
-      PopularFoodDetail(pageId: 3, page: "home"),
-      HistoryPage(),
-      CartPage(),
-    ];
+    return pages;
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
