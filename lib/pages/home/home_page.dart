@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/auth/sign_up_page.dart';
 import 'package:food_delivery/cart/cart_page.dart';
 import 'package:food_delivery/cart/history_page.dart';
 import 'package:food_delivery/pages/account/account_page.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex= 0;
   List<Widget> pages= [
     MainFoodPage(),
-    HistoryPage(),
+    SignUpPage(),
     CartPage(),
     AccountPage()
   ];

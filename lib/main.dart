@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/auth/sign_in_page.dart';
+import 'package:food_delivery/auth/sign_up_page.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'controllers/cart_controller.dart';
@@ -22,8 +24,9 @@ class MyApp extends StatelessWidget {
       return GetBuilder<RecommendedProductController>(builder: (_){
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: RouteHelper.getSplashScreen(),
-          getPages:RouteHelper.routes,
+          home: SignInPage(),
+          //initialRoute: RouteHelper.getSplashScreen(),
+          //getPages:RouteHelper.routes,
         );
       });
     });
